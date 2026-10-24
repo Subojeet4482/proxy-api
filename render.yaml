@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: proxy-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: CONCURRENCY
+        value: "300"
+      - key: TEST_TIMEOUT
+        value: "8"
+      - key: MAX_CANDIDATES
+        value: "10000"
+      - key: KEEPALIVE_SEC
+        value: "420"
